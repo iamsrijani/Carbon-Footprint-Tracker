@@ -51,55 +51,54 @@ You can use the built-in PHP development server to run the application efficient
 - `src/`: Core PHP classes (`Auth`, `ActivityManager`, `CarbonCalculator`).
 
 ER diagram
+```mermaid
 flowchart TD
-    %% --- Entities --
-    User[User]:::entity
-    Activity[Carbon Activity]:::entity
+%% --- Relationship ---
+Logs{Logs}:::rel
 
-    %% --- Relationship ---
-    Logs{Logs}:::rel
+%% --- Attributes for User ---
+UserId([<u>user_id</u>]):::pk
+Username([username]):::attr
+Email([email]):::attr
+Password([password]):::attr
+UserCreated([created_at]):::attr
 
-    %% --- Attributes for User ---
-    UserId([<u>user_id</u>]):::pk
-    Username([username]):::attr
-    Email([email]):::attr
-    Password([password]):::attr
-    UserCreated([created_at]):::attr
+%% --- Attributes for Activity ---
+ActId([<u>activity_id</u>]):::pk
+ActType([activity_type]):::attr
+ActValue([activity_value]):::attr
+Emission([carbon_emission]):::attr
+Date([entry_date]):::attr
+ActCreated([created_at]):::attr
 
-    %% --- Attributes for Activity ---
-    ActId([<u>activity_id</u>]):::pk
-    ActType([activity_type]):::attr
-    ActValue([activity_value]):::attr
-    Emission([carbon_emission]):::attr
-    Date([entry_date]):::attr
-    ActCreated([created_at]):::attr
+%% --- Connections: Attributes to Entities ---
+User --- UserId
+User --- Username
+User --- Email
+User --- Password
+User --- UserCreated
 
-    %% --- Connections: Attributes to Entities ---
-    User --- UserId
-    User --- Username
-    User --- Email
-    User --- Password
-    User --- UserCreated
+Activity --- ActId
+Activity --- ActType
+Activity --- ActValue
+Activity --- Emission
+Activity --- Date
+Activity --- ActCreated
 
-    Activity --- ActId
-    Activity --- ActType
-    Activity --- ActValue
-    Activity --- Emission
-    Activity --- Date
-    Activity --- ActCreated
+%% --- Connections: Entities to Relationship (Cardinality & Participation) ---
+%% User (1, Partial) -- Logs
+User ---|1| Logs
 
-    %% --- Connections: Entities to Relationship (Cardinality & Participation) ---
-    %% User (1, Partial) -- Logs
-    User ---|1| Logs
+%% Activity (N, Total) == Logs (Double Line simulated by thick bond)
+Activity ===|N| Logs
 
-    %% Activity (N, Total) == Logs (Double Line simulated by thick bond)
-    Activity ===|N| Logs
+%% --- Styling for Chen Notation ---
+classDef entity fill:#f9f9fa,stroke:#333,stroke-width:2px;
+classDef rel fill:#fff5ad,stroke:#333,stroke-width:2px,shape:diamond;
+classDef attr fill:#e1f5fe,stroke:#333,stroke-width:1px,shape:stadium;
+classDef pk fill:#e1f5fe,stroke:#333,stroke-width:1px,shape:stadium,text-decoration:underline;
+```
 
-    %% --- Styling for Chen Notation ---
-    classDef entity fill:#f9f9fa,stroke:#333,stroke-width:2px;
-    classDef rel fill:#fff5ad,stroke:#333,stroke-width:2px,shape:diamond;
-    classDef attr fill:#e1f5fe,stroke:#333,stroke-width:1px,shape:stadium;
-    classDef pk fill:#e1f5fe,stroke:#333,stroke-width:1px,shape:stadium,text-decoration:underline;
 
 ## License
 MIT
