@@ -50,5 +50,32 @@ You can use the built-in PHP development server to run the application efficient
   - `includes/`: Reusable UI components (header, footer).
 - `src/`: Core PHP classes (`Auth`, `ActivityManager`, `CarbonCalculator`).
 
+ER Diagram
+                               (username)
+                                   |
+                     (<u>user_id</u>) -- [ USER ] -- (password)
+                                   |    |
+                                (email) (created_at)
+                                   |
+                                   |
+                                   | 1
+                                   |
+                                   | (Partial Participation)
+                                   |
+                             < LOGS >
+                                   |
+                                   | (Total Participation - Double Line)
+                                   ||
+                                   || N
+                                   ||
+                                   ||
+           (activity_type) -- [ CARBON  ] -- (<u>activity_id</u>)
+               |              [ ACTIVITY]
+(activity_value)                   |
+                                   |
+                             (entry_date) -- (carbon_emission)
+                                   |
+                              (created_at)
+
 ## License
 MIT
