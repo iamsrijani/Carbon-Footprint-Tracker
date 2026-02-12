@@ -100,5 +100,25 @@ classDef pk fill:#e1f5fe,stroke:#333,stroke-width:1px,shape:stadium,text-decorat
 ```
 
 
+Relational Schema
+erDiagram
+    USERS ||--o{ ACTIVITIES : "logs"
+    USERS {
+        int user_id PK
+        string username
+        string email
+        string password
+        datetime created_at
+    }
+    ACTIVITIES {
+        int activity_id PK
+        int user_id FK
+        string activity_type
+        float activity_value
+        float carbon_emission
+        date entry_date
+        datetime created_at
+    }
+
 ## License
 MIT
